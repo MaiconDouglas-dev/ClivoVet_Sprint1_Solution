@@ -23,7 +23,7 @@ namespace ClivoVetApi.Controllers
             return Ok(await _context.Pets.ToListAsync());
         }
 
-        // GET: api/pets/{id} (Rota Parametrizada 1 - 200 OK ou 404)
+        // GET: api/pets/{id} 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Pet>> GetById(int id)
         {
@@ -32,7 +32,7 @@ namespace ClivoVetApi.Controllers
             return Ok(pet);
         }
 
-        // GET: api/pets/especie/{especie} (Rota Parametrizada 2)
+        // GET: api/pets/especie/{especie} 
         [HttpGet("especie/{especie}")]
         public async Task<ActionResult<IEnumerable<Pet>>> GetByEspecie(string especie)
         {
@@ -42,7 +42,32 @@ namespace ClivoVetApi.Controllers
             return Ok(pets);
         }
 
-        // POST: api/pets (201 Created)
+        // GET: api/pets/status/{status}
+        [HttpGet("status/{status}")]
+        public async Task<ActionResult<IEnumerable<Pet>>> GetByStatus(string status)
+        {
+            var pets = await _context.Pets
+                .Where(p => p.StatusAtividade.ToLower() == status.ToLower())
+                .ToListAsync();
+
+            return Ok(pets);
+        }
+
+        // GET: api/pets/peso/min/{min}/max/{max}
+        [HttpGet("peso/min/{min:double}/max/{max:double}")]
+        public async Task<ActionResult<IEnumerable<Pet>>> GetByPesoRange(double min, double max)
+        {
+            if (min < 0 || max < 0 || min > max)
+                return BadRequest("Intervalo de peso inválido.");
+
+            var pets = await _context.Pets
+                .Where(p => p.Peso >= min && p.Peso <= max)
+                .ToListAsync();
+
+            return Ok(pets);
+        }
+
+        // POST: api/pets
         [HttpPost]
         public async Task<ActionResult<Pet>> Create([FromBody] Pet pet)
         {
@@ -52,22 +77,25 @@ namespace ClivoVetApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = pet.Id }, pet);
         }
 
-        // PUT: api/pets/{id} (204 NoContent)
+        // PUT: api/pets/{id}
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, [FromBody] Pet pet)
         {
             if (id != pet.Id) return BadRequest("ID incompatível");
             _context.Entry(pet).State = EntityState.Modified;
-            try {
+            try
+            {
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) {
+            }
+            catch (DbUpdateConcurrencyException)
+            {
                 if (!_context.Pets.Any(e => e.Id == id)) return NotFound();
                 throw;
             }
             return NoContent();
         }
 
-        // DELETE: api/pets/{id} (204 NoContent)
+        // DELETE: api/pets/{id}
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
