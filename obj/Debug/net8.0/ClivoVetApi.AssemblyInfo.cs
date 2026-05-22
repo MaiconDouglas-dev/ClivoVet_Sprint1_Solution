@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClivoVetApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d03d267f72adf7ea9b0302b0bea88e1cd34a204")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClivoVetApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClivoVetApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
