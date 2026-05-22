@@ -12,7 +12,6 @@ Esta API foi desenvolvida para o ecossistema **Clivo Vet**, focando na jornada d
 Base URL: `/api/pets`
 
 ### GET (leituras)
-> A Sprint exige **mais de 3 rotas GET parametrizadas**. Este projeto contempla as seguintes rotas:
 
 - **GET `/api/pets`**: Lista todos os pets. *(200 OK)*
 - **GET `/api/pets/{id}`**: Busca um pet por ID. *(200 OK | 404 NotFound)*
@@ -38,8 +37,6 @@ Base URL: `/api/pets`
 ### 1) Configurar ConnectionString
 Edite o arquivo `appsettings.json` e configure a string em `ConnectionStrings:OracleConnection`.
 
-> **Boas práticas**: não faça commit de usuário/senha reais no GitHub. Para desenvolvimento local, prefira **User Secrets**:
->
 > ```bash
 > dotnet user-secrets init
 > dotnet user-secrets set "ConnectionStrings:OracleConnection" "<SUA_CONNECTION_STRING>"
