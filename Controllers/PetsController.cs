@@ -81,17 +81,17 @@ namespace ClivoVetApi.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, [FromBody] Pet pet)
         {
-            if (id != pet.Id) return BadRequest("ID incompatível");
-            _context.Entry(pet).State = EntityState.Modified;
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Pets.Any(e => e.Id == id)) return NotFound();
-                throw;
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var petDb = await _context.Pets.FindAsync(id);
+            if (petDb == null) return NotFound();
+            petDb.Nome = pet.Nome;
+            petDb.Especie = pet.Especie;
+            petDb.DataNascimento = pet.DataNascimento;
+            petDb.Peso = pet.Peso;
+            petDb.StatusAtividade = pet.StatusAtividade;
+            petDb.UltimaSincronizacao = pet.UltimaSincronizacao;
+
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 
