@@ -57,3 +57,14 @@ Com a aplicação rodando, acesse:
 - `/` (Swagger UI abre na raiz)
 
 E teste todos os endpoints diretamente pela interface.
+
+### Autores
+
+Evellyn Ferreira  
+RM: 562744  
+Henrique S.Maran  
+RM: 562977  
+Maicon Douglas  
+RM: 561279  
+
+Turma: 2TDSPW  
